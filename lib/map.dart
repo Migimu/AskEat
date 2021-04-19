@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:ask_and_eat/dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -36,6 +37,7 @@ class _MapaState extends State<Mapa> {
   Completer<GoogleMapController> _controller = Completer();
   Set<Circle> _circles = HashSet<Circle>();
   Set<Polyline> _polylines = HashSet<Polyline>();
+  Set<Marker> _markers = HashSet<Marker>();
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
@@ -52,6 +54,7 @@ class _MapaState extends State<Mapa> {
     //_distanceFromCircle();
     //_updatePosition();
     //_updatePositions();
+    _setMarkers();
   }
   //OBTENER POSICION ACTUAL
 
@@ -187,6 +190,64 @@ class _MapaState extends State<Mapa> {
     }
   }*/
 
+//CALCULA LAS DISTANCIAS DESDE LOS PUNTOS MAS CARCANOS
+
+  void _setMarkers() {
+    /* var cont = 0;
+
+    for (var circulo in Set.from(_circles)) {
+      var distancia = Geolocator.distanceBetween(
+          _currentPosition.latitude,
+          _currentPosition.longitude,
+          circulo.center.latitude,
+          circulo.center.longitude);
+
+      pinLocationIcon = BitmapDescriptor.hueAzure as BitmapDescriptor;
+
+      pinAnswered = BitmapDescriptor.hueGreen as BitmapDescriptor;
+
+      if (distancia < 50) {*/
+
+    setState(() {
+      //SI ESTA DENTRO DEL CICULO SE MUSTRA EL ICONO
+
+      _markers.add(Marker(
+          markerId: MarkerId("Bar"),
+          position: LatLng(43.3181039075075, -1.883062156365791),
+          consumeTapEvents: false,
+          icon: pinLocationIcon,
+          zIndex: 1,
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                      backgroundColor: Colors.transparent,
+                      //insetPadding: EdgeInsets.all(40),
+                      child: Pregunta(
+                        nombreLocal: "Zuzen",
+                      ));
+                });
+          }));
+    });
+  }
+  /*break;
+      } else {
+        //SI TE ALEJAS DEL CICULO SE OCULTA EL ICONO A NO SER QUE SE HALLA RESPONDIDIO
+        setState(() {
+          _isVisible = false;
+          markers.retainWhere((element) =>
+              element.markerId.value.contains("Bien") ||
+              element.markerId.value.contains("User"));
+        });
+      }
+    }*/
+//SI SE DEJA DE JUGAR DEJA DE BUSCAR LA LOCALIZACION MAS CERCANA
+  /*if (jugando) {
+      _distanceFromCircle();
+    }
+}*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,14 +262,14 @@ class _MapaState extends State<Mapa> {
           Container(
             //WIDGET MAPA
             child: GoogleMap(
-              myLocationEnabled: true,
+              //myLocationEnabled: true,
               /*onMapCreated: _onMapCreated,*/
               initialCameraPosition: _initialPosition,
-              //markers: markers,
+              markers: _markers,
               //circles: _circles,
               mapToolbarEnabled: false,
               mapType: _defaultMapType,
-              myLocationButtonEnabled: false,
+              //myLocationButtonEnabled: false,
             ),
           ),
 

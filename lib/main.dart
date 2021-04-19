@@ -1,5 +1,6 @@
 import 'package:ask_and_eat/listaSlider.dart';
 import 'package:ask_and_eat/map.dart';
+import 'package:ask_and_eat/scanner.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -40,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: ConvexAppBar(
         items: [
           TabItem(icon: Icons.home, title: 'Mapa'),
-          TabItem(icon: Icons.favorite, title: 'Lista'),
-          TabItem(icon: Icons.search, title: 'Search')
+          TabItem(icon: Icons.list_alt_outlined, title: 'Lista'),
+          TabItem(icon: Icons.qr_code_sharp, title: 'Escaner QR')
         ],
         initialActiveIndex: 0, //optional, default as 0
         onTap: (int i) {
@@ -88,9 +89,14 @@ class _ListaBuscadorState extends State<ListaBuscador> {
     return Scaffold(
       body: ListaSlider(),
       appBar: AppBar(
-        title: Text("Filtro"),
-        actions: [
-          Autocomplete<String>(
+        title: Container(
+          //width: 200,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 3, color: Colors.blue),
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+
+          child: Autocomplete<String>(
             optionsBuilder: (TextEditingValue textEditingValue) {
               if (textEditingValue.text == '') {
                 return const Iterable<String>.empty();
@@ -102,6 +108,14 @@ class _ListaBuscadorState extends State<ListaBuscador> {
             onSelected: (String selection) {
               print('You just selected $selection');
             },
+          ),
+        ),
+        actions: [
+          TextButton.icon(
+            style: TextButton.styleFrom(primary: Colors.black),
+            onPressed: () {},
+            icon: Icon(Icons.filter_alt),
+            label: Text(""),
           )
         ],
       ),
@@ -119,8 +133,6 @@ class Opciones extends StatefulWidget {
 class _OpcionesState extends State<Opciones> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Opciones"),
-    );
+    return EscanerQR();
   }
 }

@@ -32,30 +32,31 @@ class _ListaSliderState extends State<ListaSlider> {
               ),
               actions: <Widget>[
                 IconSlideAction(
-                  caption: 'Archive',
+                  caption: 'Casa',
                   color: Colors.blue,
-                  icon: Icons.archive,
+                  icon: Icons.food_bank_outlined,
                   onTap: () => () {},
                 ),
                 IconSlideAction(
-                  caption: 'Share',
+                  caption: 'Bar',
                   color: Colors.indigo,
-                  icon: Icons.share,
+                  icon: Icons.local_drink_outlined,
                   onTap: () => () {},
                 ),
               ],
               secondaryActions: [
                 IconSlideAction(
-                  caption: 'More',
-                  color: Colors.black45,
-                  icon: Icons.more_horiz,
-                  onTap: () {},
+                  caption: 'Casa',
+                  color: Colors.blue,
+                  icon: Icons.food_bank_outlined,
+                  onTap: () => () {},
                 ),
                 IconSlideAction(
-                    caption: 'Delete',
-                    color: Colors.red,
-                    icon: Icons.delete,
-                    onTap: () {}),
+                  caption: 'Bar',
+                  color: Colors.indigo,
+                  icon: Icons.local_drink_outlined,
+                  onTap: () => () {},
+                ),
               ],
             );
           }),
