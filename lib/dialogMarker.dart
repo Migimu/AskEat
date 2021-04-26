@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ask_and_eat/tab_page.dart';
 import 'package:flutter/material.dart';
 
 class Pregunta extends StatefulWidget {
@@ -22,15 +23,6 @@ class _PreguntaState extends State<Pregunta> {
   Widget build(BuildContext context) {
     //COMPRUEBA SI HAY UNA IMAGEN VALIDA SI NO PONE UN PLACEHOLDER
     var imagenValida = AssetImage("images/icon.png");
-    /*if (pregunta['imagen'] == "" || pregunta['imagen'] == null) {
-      imagenValida = AssetImage("images/explorer.png");
-    } else {
-      imagenValida = Image.memory(
-        base64.decode(pregunta['imagen']),
-        width: 100.0,
-        height: 200.0,
-      );
-    }*/
 
     return Container(
         color: Colors.white,
@@ -71,7 +63,14 @@ class _PreguntaState extends State<Pregunta> {
                           primary: Colors.black,
                           onSurface: Colors.yellow,
                           minimumSize: Size(100, 50)),
-                      onPressed: () {},
+                      onPressed: () {
+                        var MPR =
+                            MaterialPageRoute(builder: (context) => TabPage());
+                        Navigator.push(
+                          context,
+                          MPR,
+                        );
+                      },
                       child: Text("Casa")),
 
                   TextButton(

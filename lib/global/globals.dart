@@ -23,3 +23,10 @@ var usuario;
 //LISTA DE MARKERS
 
 Set<Marker> markers = HashSet<Marker>();
+
+//LISTA CARRO
+var carroCompra;
+
+var valueCasa = false;
+
+var valueBar = false;

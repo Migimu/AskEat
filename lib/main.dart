@@ -2,6 +2,7 @@ import 'package:ask_and_eat/listaSlider.dart';
 import 'package:ask_and_eat/map.dart';
 import 'package:ask_and_eat/scanner.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,20 +19,22 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Convex Bottom Bar'),
+      home: MainPage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class MainPage extends StatefulWidget {
+  MainPage({
+    Key? key,
+  }) : super(key: key);
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
   int selectedPage = 0;
   final _pageOptions = [MapaBuscador(), ListaBuscador(), Opciones()];
   @override
@@ -89,6 +92,7 @@ class _ListaBuscadorState extends State<ListaBuscador> {
     return Scaffold(
       body: ListaSlider(),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Container(
           //width: 200,
           decoration: BoxDecoration(
@@ -110,14 +114,14 @@ class _ListaBuscadorState extends State<ListaBuscador> {
             },
           ),
         ),
-        actions: [
+        /*actions: [
           TextButton.icon(
             style: TextButton.styleFrom(primary: Colors.black),
             onPressed: () {},
             icon: Icon(Icons.filter_alt),
             label: Text(""),
           )
-        ],
+        ],*/
       ),
     );
   }

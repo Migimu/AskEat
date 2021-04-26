@@ -58,7 +58,9 @@ class _EscanerQRState extends State<EscanerQR> {
                         'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}',
                         style: TextStyle(fontSize: 25),
                       )
-                    : Text('Escanea una mesa', style: TextStyle(fontSize: 25)),
+                    : Text('Escanea una mesa',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold)),
               )),
         ],
       ),
