@@ -1,10 +1,15 @@
 class Clientes {
+  String? _idCliente;
   String? _usuario;
   String? _correo;
   String? _telefono;
   String? _direccion;
-  String? _gustos;
+  List<String>? _gustos;
   String? _dieta;
+
+  String? get idCliente => this._idCliente;
+
+  set idCliente(String? value) => this._idCliente = value;
 
   String? get usuario => this._usuario;
 

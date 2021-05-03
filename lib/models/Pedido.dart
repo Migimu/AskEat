@@ -1,5 +1,5 @@
 class Pedido {
-  int? _idPedido = 0;
+  int? _idPedido;
   DateTime? _fechaEntregaPrevista;
   DateTime? _fechaEntrega;
   DateTime? _fechaPedidoRealizado;
@@ -9,6 +9,11 @@ class Pedido {
   String? _nota;
   int? _idLocal;
   int? _idCliente;
+  List<dynamic> _listaProductos;
+
+  List<dynamic> get listaProductos => this._listaProductos;
+
+  set listaProductos(List<dynamic> value) => this._listaProductos = value;
 
   get idPedido => this._idPedido;
 
@@ -50,6 +55,16 @@ class Pedido {
 
   set idCliente(value) => this._idCliente = value;
 
-  Pedido(this._idPedido, this._fechaEntregaPrevista, this._fechaEntrega,
-      this._fechaPedidoRealizado, this._destino);
+  Pedido(
+      this._idPedido,
+      this._fechaEntregaPrevista,
+      this._fechaEntrega,
+      this._fechaPedidoRealizado,
+      this._destino,
+      this._precioTotal,
+      this._realizado,
+      this._nota,
+      this._idLocal,
+      this._idCliente,
+      this._listaProductos);
 }

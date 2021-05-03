@@ -40,3 +40,7 @@ var carroCompra;
 var valueCasa = false;
 
 var valueBar = false;
+
+bool pedidoCasa = false;
+
+bool pedidobar = false;
