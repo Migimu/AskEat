@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 class Local {
-  int? _idLocal;
+  String? _idLocal;
   String? _nombre;
   String? _direccion;
   Double? _latitud;
@@ -9,9 +9,9 @@ class Local {
   String? _especialidad;
   bool? _domicilio;
   int? _idHostelero;
-  int? get idLocal => this._idLocal;
+  String? get idLocal => this._idLocal;
 
-  set idLocal(int? value) => this._idLocal = value;
+  set idLocal(String? value) => this._idLocal = value;
 
   get nombre => this._nombre;
 
@@ -43,4 +43,16 @@ class Local {
 
   Local(this._idLocal, this._nombre, this._direccion, this._latitud,
       this._longitud, this._especialidad, this._domicilio, this._idHostelero);
+
+  factory Local.fromJson(Map<String, dynamic> parsedJson) {
+    return new Local(
+        _idLocal: parsedJson['_id'] as String,
+        _nombre: parsedJson['nombre'] as String,
+        _direccion: parsedJson['direccion'] as String,
+        _latitud: parsedJson['latitud'] as Double,
+        _longitud: parsedJson['longitud'] as Double,
+        _especialidad: parsedJson['especialidad'] as String,
+        _domicilio: parsedJson['domicilio'] as bool,
+        _idHostelero: parsedJson['idHostelero'] as String);
+  }
 }

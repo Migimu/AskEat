@@ -41,4 +41,6 @@ class API {
       return null;
     }
   }
+
+  static Future getLocales() async {}
 }
