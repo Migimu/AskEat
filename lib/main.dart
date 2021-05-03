@@ -9,9 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Login',
       debugShowCheckedModeBanner: false,
-      //home: PruebasApi(),
       home: LoginScreen(),
-      //home: RegisterScreen(),
     );
   }
 }
