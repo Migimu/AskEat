@@ -1,5 +1,5 @@
-import 'package:ask_and_eat/carta_view.dart';
-import 'package:ask_and_eat/main.dart';
+import 'package:ask_and_eat/widget/carta_view.dart';
+import 'package:ask_and_eat/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatelessWidget {

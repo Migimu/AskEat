@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ask_and_eat/tab_page.dart';
+import 'package:ask_and_eat/pages/tab_page.dart';
 import 'package:flutter/material.dart';
 
 class Pregunta extends StatefulWidget {
@@ -22,7 +22,7 @@ class _PreguntaState extends State<Pregunta> {
   @override
   Widget build(BuildContext context) {
     //COMPRUEBA SI HAY UNA IMAGEN VALIDA SI NO PONE UN PLACEHOLDER
-    var imagenValida = AssetImage("images/icon.png");
+    var imagenValida = AssetImage("images/take-away.png");
 
     return Container(
         color: Colors.white,

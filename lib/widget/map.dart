@@ -1,14 +1,9 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:convert';
-
-import 'package:ask_and_eat/dialogMarker.dart';
+import 'package:ask_and_eat/widget/dialogMarker.dart';
 import 'package:flutter/material.dart';
 
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'global/globals.dart';
 
 class Mapa extends StatefulWidget {
   /*final List localizaciones;*/

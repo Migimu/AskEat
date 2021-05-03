@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ask_and_eat/dialogCarro.dart';
+import 'package:ask_and_eat/widget/dialogCarro.dart';
 
 class carta_view extends StatefulWidget {
   carta_view({Key? key, required this.title}) : super(key: key);

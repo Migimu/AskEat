@@ -1,4 +1,5 @@
 import 'package:ask_and_eat/global/globals.dart';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -15,7 +16,7 @@ class _ListaSliderState extends State<ListaSlider> {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
-          itemCount: 15,
+          itemCount: 1,
           itemBuilder: (context, index) {
             return Column(
               children: listaSlide(),
@@ -26,7 +27,7 @@ class _ListaSliderState extends State<ListaSlider> {
 
   List<Widget> listaSlide() {
     List<Widget> lista = List.generate(
-        15,
+        listaLocales.length,
         (index) => Slidable(
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
@@ -35,11 +36,11 @@ class _ListaSliderState extends State<ListaSlider> {
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Colors.indigoAccent,
-                    child: Text('$index'),
+                    child: Image.asset('images/take-away.png'),
                     foregroundColor: Colors.white,
                   ),
-                  title: Text('Tile n°$index'),
-                  subtitle: Text('SlidableDrawerDelegate'),
+                  title: Text(listaLocales[index][0] as String),
+                  subtitle: Text(listaLocales[index][1] as String),
                 ),
               ),
               actions: <Widget>[

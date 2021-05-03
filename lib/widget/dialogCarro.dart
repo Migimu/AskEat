@@ -29,7 +29,7 @@ class _CarroState extends State<Carro> {
       ),
       Container(
           color: Colors.white,
-          height: MediaQuery.of(context).size.height - 100,
+          height: MediaQuery.of(context).size.height - 150,
           width: MediaQuery.of(context).size.width - 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -43,6 +43,22 @@ class _CarroState extends State<Carro> {
               SizedBox(
                 height: 5,
               ),
+              /*Align(
+                alignment: Alignment.center,
+                child: Table(
+                  children: List.generate(5, (index) {
+                    return TableRow(children: [
+                      Text(
+                        "Nombre",
+                      ),
+                      Text("Contidad"),
+                      TextButton(
+                          onPressed: () {},
+                          child: Icon(Icons.remove_shopping_cart_outlined))
+                    ]);
+                  }),
+                ),
+              ),*/
               Container(
                 height: 200,
                 child: ListView.builder(
@@ -51,7 +67,9 @@ class _CarroState extends State<Carro> {
                     return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("NOmbre"),
+                          Text(
+                            "Nombre",
+                          ),
                           Text("Contidad"),
                           TextButton(
                               onPressed: () {},
@@ -67,18 +85,23 @@ class _CarroState extends State<Carro> {
               TextButton(onPressed: () {}, child: Text("Confirmar"))
             ],
           )),
-      Container(
-        height: 75,
-        width: 75,
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.red[500]!,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(50))),
+      Align(
         alignment: Alignment.topCenter,
-        child: Icon(
-          Icons.shopping_cart,
-          size: 60,
+        child: Container(
+          height: 75,
+          width: 75,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              /*border: Border.all(
+                color: Colors.black,
+              ),*/
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          alignment: Alignment.center,
+          child: Icon(
+            Icons.shopping_cart,
+            size: 60,
+            //color: Colors.blue,
+          ),
         ),
       ),
     ]);
