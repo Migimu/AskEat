@@ -2,6 +2,7 @@ library geo_explorer.globals;
 
 import 'dart:collection';
 
+import 'package:ask_and_eat/models/Producto.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 //LA PUNTUACION DEL JUAGADOR
@@ -35,7 +36,15 @@ var listaLocales = [
 ];
 
 //LISTA CARRO
-var carroCompra;
+List carroCompra = [];
+
+List<Producto> dummyMenu = [
+  Producto(0, "Mosto", "Bebida", ""),
+  Producto(1, "Vino", "Bebida", ""),
+  Producto(2, "Cerveza", "Bebida", ""),
+  Producto(3, "Zumo", "Bebida", ""),
+  Producto(4, "Cafe", "Bebida", "")
+];
 
 var valueCasa = false;
 
