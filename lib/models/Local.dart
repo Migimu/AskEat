@@ -8,7 +8,7 @@ class Local {
   Double? _longitud;
   String? _especialidad;
   bool? _domicilio;
-  int? _idHostelero;
+  String? _idHostelero;
   String? get idLocal => this._idLocal;
 
   set idLocal(String? value) => this._idLocal = value;
@@ -46,13 +46,14 @@ class Local {
 
   factory Local.fromJson(Map<String, dynamic> parsedJson) {
     return new Local(
-        _idLocal: parsedJson['_id'] as String,
-        _nombre: parsedJson['nombre'] as String,
-        _direccion: parsedJson['direccion'] as String,
-        _latitud: parsedJson['latitud'] as Double,
-        _longitud: parsedJson['longitud'] as Double,
-        _especialidad: parsedJson['especialidad'] as String,
-        _domicilio: parsedJson['domicilio'] as bool,
-        _idHostelero: parsedJson['idHostelero'] as String);
+      parsedJson['_id'] as String,
+      parsedJson['nombre'] as String,
+      parsedJson['direccion'] as String,
+      parsedJson['latitud'] as Double,
+      parsedJson['longitud'] as Double,
+      parsedJson['especialidad'] as String,
+      parsedJson['domicilio'] as bool,
+      parsedJson['idHostelero'] as String,
+    );
   }
 }

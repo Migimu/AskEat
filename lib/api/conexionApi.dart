@@ -1,31 +1,30 @@
 import 'dart:async';
+import 'package:ask_and_eat/global/globals.dart';
+import 'package:ask_and_eat/models/Local.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 const baseUrl =
-    "http://10.0.2.2:8080/"; //10.0.2.2 porque estas en un emulador de android
+    "http://10.10.12.133:8080/"; //10.0.2.2 porque estas en un emulador de android
 
 class API {
   static Future getClientes() async {
-    var url = baseUrl + "/clientes/leer";
-    var urlUri = Uri.parse(url);
-
-    final response = await http.get(urlUri);
-    if (response.statusCode == 200) {
+    /*var url = baseUrl + "/clientes/all";
+    final response = await http.get(url);
+    if (response.statusCode == 200){
       var responseJson = json.decode(response.body);
       return responseJson;
     } else {
       return null;
-    }
+    }*/
   }
 
   static Future createCliente(var data) async {
-    var url = baseUrl + "/clientes/nuevo";
-    var urlUri = Uri.parse(url);
+    var url = baseUrl + "/clientes/new";
 
     var body = json.encode(data);
 
-    var response = await http.post(urlUri,
+    var response = await http.post(url as Uri,
         headers: {"Content-Type": "application/json"}, body: body);
 
     print("${response.statusCode}");
@@ -34,11 +33,9 @@ class API {
     print("Funcion de crear cliente");
   }
 
-  static Future getCliente(var user, var contrasena) async {
-    var url = baseUrl + "/clientes/leerByUsuario/$user/$contrasena";
-    var urlUri = Uri.parse(url);
-
-    final response = await http.get(urlUri);
+  static Future getCliente(var user, String text) async {
+    var url = baseUrl + "/clientes/getByUsuario/$user";
+    final response = await http.get(url as Uri);
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       return responseJson;
@@ -47,5 +44,12 @@ class API {
     }
   }
 
-  static Future getLocales() async {}
+  static Future getLocales() async {
+    var url = baseUrl + "/locales/locales";
+    final response = await http.get(url as Uri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      listaLocales2.add(Local.fromJson(responseJson));
+    }
+  }
 }

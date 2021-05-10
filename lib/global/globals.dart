@@ -2,6 +2,7 @@ library geo_explorer.globals;
 
 import 'dart:collection';
 
+import 'package:ask_and_eat/models/Local.dart';
 import 'package:ask_and_eat/models/Producto.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -35,6 +36,7 @@ var listaLocales = [
   ["Gaiur", "Bedidas y raciones", 2]
 ];
 
+var listaLocales2 = [];
 //LISTA CARRO
 List carroCompra = [];
 

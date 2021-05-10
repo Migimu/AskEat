@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'package:ask_and_eat/api/conexionApi.dart';
 import 'package:ask_and_eat/widget/dialogMarker.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,7 @@ class _MapaState extends State<Mapa> {
     //_updatePosition();
     //_updatePositions();
     _setMarkers();
+    API.getLocales();
   }
   //OBTENER POSICION ACTUAL
 

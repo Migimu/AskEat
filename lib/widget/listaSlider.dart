@@ -1,4 +1,6 @@
+import 'package:ask_and_eat/api/conexionApi.dart';
 import 'package:ask_and_eat/global/globals.dart';
+import 'package:ask_and_eat/models/Local.dart';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +18,71 @@ class _ListaSliderState extends State<ListaSlider> {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Column(
-              children: listaSlide(),
-            );
-          }),
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return Column(
+            children: listaSlide(),
+            /*children: [
+              FutureBuilder(
+                future: API.getLocales(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  print("Datos " + snapshot.data.toString());
+                  return Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: Container(
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.indigoAccent,
+                          child: Image.asset('images/take-away.png'),
+                          foregroundColor: Colors.white,
+                        ),
+                        title: Text(snapshot.data.nombre),
+                        subtitle: Text(snapshot.data.especialidad),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      IconSlideAction(
+                        caption: 'Casa',
+                        color: Colors.blue,
+                        icon: Icons.food_bank_outlined,
+                        onTap: () => () {},
+                      ),
+                      IconSlideAction(
+                        caption: 'Bar',
+                        color: Colors.indigo,
+                        icon: Icons.local_drink_outlined,
+                        onTap: () => () {},
+                      ),
+                    ],
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: 'Casa',
+                        color: Colors.blue,
+                        icon: Icons.food_bank_outlined,
+                        onTap: () => () {},
+                      ),
+                      IconSlideAction(
+                        caption: 'Bar',
+                        color: Colors.indigo,
+                        icon: Icons.local_drink_outlined,
+                        onTap: () => () {},
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],*/
+          );
+        },
+      ),
     );
   }
 
   List<Widget> listaSlide() {
     List<Widget> lista = List.generate(
-        listaLocales.length,
+        listaLocales2.length,
         (index) => Slidable(
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
@@ -39,8 +94,8 @@ class _ListaSliderState extends State<ListaSlider> {
                     child: Image.asset('images/take-away.png'),
                     foregroundColor: Colors.white,
                   ),
-                  title: Text(listaLocales[index][0] as String),
-                  subtitle: Text(listaLocales[index][1] as String),
+                  title: Text(listaLocales2[index] as String),
+                  subtitle: Text(listaLocales2[index] as String),
                 ),
               ),
               actions: <Widget>[
