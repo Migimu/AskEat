@@ -339,15 +339,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool existeUsuario() {
-    var existe = false;
-    API
-        .getCliente(controllerUsuario.text, controllerContrasena.text)
-        .then((response) {
-      lista2 = response;
-      if (lista2.length > 0) {
+    bool existe = false;
+    for (var user in lista) {
+      if (controllerUsuario.text == user['usuario'] &&
+          controllerContrasena.text == user['contrasena']) {
         existe = true;
+        break;
       }
-    });
+    }
     return existe;
   }
 }

@@ -8,9 +8,7 @@ const baseUrl =
 class API {
   static Future getClientes() async {
     var url = baseUrl + "/clientes/leer";
-    var urlUri = Uri.parse(url);
-
-    final response = await http.get(urlUri);
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       return responseJson;
