@@ -16,6 +16,8 @@ var usuario;
 Set<Marker> markers = HashSet<Marker>();
 
 //LISTA Locales
+var listaLocalesAPI;
+var listaActual;
 var listaLocales = [
   ["Zuzen", "Bedidas y raciones", 1],
   ["Izadi", "Comida a domicilio", 0],

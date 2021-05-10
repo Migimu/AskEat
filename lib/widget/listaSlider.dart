@@ -13,13 +13,11 @@ class ListaSlider extends StatefulWidget {
 }
 
 class _ListaSliderState extends State<ListaSlider> {
-  var listaLocalesAPI;
-
   @override
   void initState() {
     API.getLocales().then((response) {
       listaLocalesAPI = response;
-      print(listaLocalesAPI);
+      listaActual = listaLocalesAPI;
       setState(() {});
     });
   }
@@ -27,7 +25,9 @@ class _ListaSliderState extends State<ListaSlider> {
   @override
   Widget build(BuildContext context) {
     if (listaLocalesAPI == null) {
-      return CircularProgressIndicator();
+      return Container(
+        child: Center(child: CircularProgressIndicator()),
+      );
     } else {
       return Container(
         child: ListView.builder(
@@ -43,7 +43,7 @@ class _ListaSliderState extends State<ListaSlider> {
 
   List<Widget> listaSlide() {
     List<Widget> lista = List.generate(
-        listaLocales.length,
+        listaActual.length,
         (index) => Slidable(
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
@@ -55,8 +55,8 @@ class _ListaSliderState extends State<ListaSlider> {
                     child: Image.asset('images/take-away.png'),
                     foregroundColor: Colors.white,
                   ),
-                  title: Text(listaLocales[index][0] as String),
-                  subtitle: Text(listaLocales[index][1] as String),
+                  title: Text(listaActual[index]["nombre"]),
+                  subtitle: Text(listaActual[index]["direccion"]),
                 ),
               ),
               actions: <Widget>[
@@ -115,7 +115,6 @@ class _ListaSliderState extends State<ListaSlider> {
                       onChanged: (bool? value) {
                         setState(() {
                           valueCasa = value!;
-                          print("cambio");
                         });
                       },
                     ),
@@ -125,22 +124,35 @@ class _ListaSliderState extends State<ListaSlider> {
                       onChanged: (bool? value) {
                         setState(() {
                           valueBar = value!;
-                          print("cambio2");
                         });
                       },
                     ),
                     Text("Bar"),
                     TextButton(
                       onPressed: () {
-                        /*if (valueCasa && valueBar) {
-                          API.getLocales();
+                        if (valueCasa && valueBar) {
+                          listaActual = listaLocalesAPI;
                         } else if (valueBar) {
-                          API.getLocalesByDomicilio(0);
+                          var listaMod = [];
+                          for (var item in listaLocalesAPI) {
+                            if (item["domicilio"] == false) {
+                              listaMod.add(item);
+                            }
+                          }
+                          listaActual = listaMod;
                         } else if (valueCasa) {
-                          API.getLocalesByDomicilio(1);
+                          var listaMod = [];
+                          for (var item in listaLocalesAPI) {
+                            if (item["domicilio"] == true) {
+                              listaMod.add(item);
+                            }
+                          }
+                          listaActual = listaMod;
                         } else {
-                          API.getLocales();
-                        }*/
+                          listaActual = listaLocalesAPI;
+                        }
+                        print(listaActual);
+                        setState(() {});
                       },
                       child: Text("Aplicar"),
                       style: TextButton.styleFrom(

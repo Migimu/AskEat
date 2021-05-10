@@ -86,20 +86,8 @@ class ListaBuscador extends StatefulWidget {
 }
 
 class _ListaBuscadorState extends State<ListaBuscador> {
-  static List<String> _kOptions = List.generate(listaLocales.length, (index) {
-    if (valueCasa && valueBar) {
-      return listaLocales[index][0] as String;
-    }
-    if (!valueCasa && !valueBar) {
-      return listaLocales[index][0] as String;
-    }
-    if (valueCasa && !valueBar) {
-      return listaLocales[index][0] as String;
-    }
-    if (!valueCasa && valueBar) {
-      return listaLocales[index][0] as String;
-    }
-    return "";
+  static List<String> _kOptions = List.generate(listaActual.length, (index) {
+    return listaActual[index]["nombre"] as String;
   });
   @override
   Widget build(BuildContext context) {
