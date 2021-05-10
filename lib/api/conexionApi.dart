@@ -44,4 +44,30 @@ class API {
       return null;
     }
   }
+
+  static Future getLocales() async {
+    var url = baseUrl + "/locales/leer";
+    var urlUri = Uri.parse(url);
+
+    final response = await http.get(urlUri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return responseJson;
+    } else {
+      return null;
+    }
+  }
+
+  static Future getLocalesByDomicilio(int valor) async {
+    var url = baseUrl + "/locales/leerByDomicilio/$valor";
+    var urlUri = Uri.parse(url);
+
+    final response = await http.get(urlUri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return responseJson;
+    } else {
+      return null;
+    }
+  }
 }

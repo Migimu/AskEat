@@ -3,6 +3,7 @@ import 'package:ask_and_eat/global/globals.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:ask_and_eat/api/conexionApi.dart';
 
 class ListaSlider extends StatefulWidget {
   ListaSlider({Key? key}) : super(key: key);
@@ -12,17 +13,32 @@ class ListaSlider extends StatefulWidget {
 }
 
 class _ListaSliderState extends State<ListaSlider> {
+  var listaLocalesAPI;
+
+  @override
+  void initState() {
+    API.getLocales().then((response) {
+      listaLocalesAPI = response;
+      print(listaLocalesAPI);
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Column(
-              children: listaSlide(),
-            );
-          }),
-    );
+    if (listaLocalesAPI == null) {
+      return CircularProgressIndicator();
+    } else {
+      return Container(
+        child: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return Column(
+                children: listaSlide(),
+              );
+            }),
+      );
+    }
   }
 
   List<Widget> listaSlide() {
@@ -99,6 +115,7 @@ class _ListaSliderState extends State<ListaSlider> {
                       onChanged: (bool? value) {
                         setState(() {
                           valueCasa = value!;
+                          print("cambio");
                         });
                       },
                     ),
@@ -108,12 +125,23 @@ class _ListaSliderState extends State<ListaSlider> {
                       onChanged: (bool? value) {
                         setState(() {
                           valueBar = value!;
+                          print("cambio2");
                         });
                       },
                     ),
                     Text("Bar"),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        /*if (valueCasa && valueBar) {
+                          API.getLocales();
+                        } else if (valueBar) {
+                          API.getLocalesByDomicilio(0);
+                        } else if (valueCasa) {
+                          API.getLocalesByDomicilio(1);
+                        } else {
+                          API.getLocales();
+                        }*/
+                      },
                       child: Text("Aplicar"),
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue[300]),

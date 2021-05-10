@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ask_and_eat/widget/registerScreen.dart';
 import 'package:ask_and_eat/api/conexionApi.dart';
 
+import 'package:ask_and_eat/global/globals.dart' as globals;
+
 import 'dart:io';
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     API.getClientes().then((response) {
       lista = response;
-      print(lista);
     });
   }
 
@@ -344,6 +345,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (controllerUsuario.text == user['usuario'] &&
           controllerContrasena.text == user['contrasena']) {
         existe = true;
+        globals.usuarioNombre = user['usuario'];
+        globals.usuario = user;
         break;
       }
     }
