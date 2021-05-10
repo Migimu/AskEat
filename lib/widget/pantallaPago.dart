@@ -1,6 +1,7 @@
 import 'package:ask_and_eat/global/globals.dart';
 import 'package:ask_and_eat/pages/mainPage.dart';
 import 'package:ask_and_eat/widget/scanner.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class PantallaPago extends StatefulWidget {
@@ -50,7 +51,8 @@ class _PantallaPagoState extends State<PantallaPago> {
                     height: 200,
                     child: ListView(
                       children: listaFinal(),
-                    ))
+                    )),
+                    ExpandablePanel(header: Row,collapsed: Container(), expanded: expanded)
               ]),
             ),
             onWillPop: () async {

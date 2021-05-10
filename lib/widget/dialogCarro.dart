@@ -1,3 +1,6 @@
+import 'package:ask_and_eat/global/globals.dart';
+import 'package:ask_and_eat/pages/mainPage.dart';
+import 'package:ask_and_eat/widget/scanner.dart';
 import 'package:flutter/material.dart';
 
 class Carro extends StatefulWidget {
@@ -62,17 +65,47 @@ class _CarroState extends State<Carro> {
               Container(
                 height: 200,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: pedidoActual!.listaProductos.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Nombre",
+                            pedidoActual!.listaProductos[index][0].nombre,
                           ),
-                          Text("Contidad"),
+                          Text(pedidoActual!.listaProductos[index][1]),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title:
+                                          Row(children: [Icon(Icons.warning)]),
+                                      content: Text(
+                                          "Seguro que quieres eliminar este elemento de tu carro?"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text("No"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        //BOTON DERECHA PESTAÑA SALIR
+                                        TextButton(
+                                          child: Text("Si"),
+                                          onPressed: () {
+                                            //CERRAMOS PESTAÑA
+                                            pedidoActual!.listaProductos
+                                                .removeAt(index);
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
                               child: Icon(Icons.remove_shopping_cart_outlined))
                         ]);
                   },
@@ -81,8 +114,79 @@ class _CarroState extends State<Carro> {
               SizedBox(
                 height: 5,
               ),
-              TextButton(onPressed: () {}, child: Text("Cancelar")),
-              TextButton(onPressed: () {}, child: Text("Confirmar"))
+              TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Row(children: [
+                            Text("Atencion"),
+                            Icon(Icons.warning)
+                          ]),
+                          content:
+                              Text("Seguro que quieres cancelar tu pedido?"),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text("No"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            //BOTON DERECHA PESTAÑA SALIR
+                            TextButton(
+                              child: Text("Si"),
+                              onPressed: () {
+                                //CERRAMOS PESTAÑA
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainPage()),
+                                );
+                                pedidoActual!.listaProductos.clear();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text("Cancelar")),
+              TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Row(children: [Icon(Icons.warning)]),
+                          content: Text("Quiere finalizar su pedido?"),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text("No"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            //BOTON DERECHA PESTAÑA SALIR
+                            TextButton(
+                              child: Text("Si"),
+                              onPressed: () {
+                                if (direccion!.isEmpty) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EscanerQR()),
+                                  );
+                                }
+                                //CERRAMOS PESTAÑA
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text("Confirmar"))
             ],
           )),
       Align(
