@@ -108,7 +108,9 @@ class _ListaBuscadorState extends State<ListaBuscador> {
                 return const Iterable<String>.empty();
               }
               return _kOptions.where((String option) {
-                return option.contains(textEditingValue.text.toLowerCase());
+                return option
+                    .toLowerCase()
+                    .contains(textEditingValue.text.toLowerCase());
               });
             },
             onSelected: (String selection) {
