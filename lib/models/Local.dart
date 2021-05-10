@@ -4,8 +4,8 @@ class Local {
   int? _idLocal;
   String? _nombre;
   String? _direccion;
-  Double? _latitud;
-  Double? _longitud;
+  double _latitud;
+  double _longitud;
   String? _especialidad;
   bool? _domicilio;
   int? _idHostelero;
@@ -21,9 +21,9 @@ class Local {
 
   set direccion(value) => this._direccion = value;
 
-  Double? get latitud => this._latitud;
+  double get latitud => this._latitud;
 
-  set latitud(Double? value) => this._latitud = value;
+  set latitud(double value) => this._latitud = value;
 
   get longitud => this._longitud;
 

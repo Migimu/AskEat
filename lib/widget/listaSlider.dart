@@ -14,15 +14,6 @@ class ListaSlider extends StatefulWidget {
 
 class _ListaSliderState extends State<ListaSlider> {
   @override
-  void initState() {
-    API.getLocales().then((response) {
-      listaLocalesAPI = response;
-      listaActual = listaLocalesAPI;
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (listaLocalesAPI == null) {
       return Container(

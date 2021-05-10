@@ -5,6 +5,9 @@ import 'package:ask_and_eat/widget/scanner.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../api/conexionApi.dart';
+import '../global/globals.dart';
+
 /*void main() {
   runApp(MyApp());
 }
@@ -33,6 +36,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  initState() {
+    API.getLocales().then((response) {
+      listaLocalesAPI = response;
+      listaActual = listaLocalesAPI;
+      setState(() {});
+    });
+  }
+
   var dbuser;
 
   _MainPageState(var client) {
@@ -72,9 +83,15 @@ class MapaBuscador extends StatefulWidget {
 class _MapaBuscadorState extends State<MapaBuscador> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Mapa(),
-    );
+    if (listaActual == null) {
+      return Container(
+        child: Center(child: CircularProgressIndicator()),
+      );
+    } else {
+      return Container(
+        child: Mapa(),
+      );
+    }
   }
 }
 
