@@ -1,11 +1,9 @@
 import 'package:ask_and_eat/pages/mainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:ask_and_eat/widget/loginCorrect.dart';
 import 'package:ask_and_eat/widget/registerScreen.dart';
 import 'package:ask_and_eat/api/conexionApi.dart';
 
-//TUTORIAL DE YOUTUBE
-//https://www.youtube.com/watch?v=6kaEbTfb444&ab_channel=MarcusNg
+import 'dart:io';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -16,11 +14,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var lista;
+  var lista2;
+  var existeUser;
 
   @override
   void initState() {
     API.getClientes().then((response) {
       lista = response;
+      print(lista);
     });
   }
 
@@ -338,14 +339,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool existeUsuario() {
-    bool existe = false;
-    for (var user in lista) {
-      if (controllerUsuario.text == user['usuario'] &&
-          controllerContrasena.text == user['contrasena']) {
+    var existe = false;
+    API
+        .getCliente(controllerUsuario.text, controllerContrasena.text)
+        .then((response) {
+      lista2 = response;
+      if (lista2.length > 0) {
         existe = true;
-        break;
       }
-    }
+    });
     return existe;
   }
 }

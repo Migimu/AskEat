@@ -18,8 +18,10 @@ class _MapaState extends State<Mapa> {
   var localizaciones = [];
   MapType _defaultMapType = MapType.normal;
   bool _isVisible = false;
-  BitmapDescriptor pinLocationIcon = BitmapDescriptor.defaultMarker;
-  BitmapDescriptor pinAnswered = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor pinLocationIcon =
+      BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan);
+  BitmapDescriptor pinAnswered =
+      BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
   bool seguir = false;
   var imagenValida;
 

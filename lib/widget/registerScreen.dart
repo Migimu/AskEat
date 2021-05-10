@@ -60,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController controllerCorreo = TextEditingController();
   TextEditingController controllerTelefono = TextEditingController();
   TextEditingController controllerDireccion = TextEditingController();
+  TextEditingController controllerGustos = TextEditingController();
   TextEditingController controllerDieta = TextEditingController();
   TextEditingController controllerContrasena = TextEditingController();
   TextEditingController controllerContrasenaRepetida = TextEditingController();
@@ -201,6 +202,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.white,
               ),
               hintText: 'Inserta tu direccion',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget crearTFGustos() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Gustos',
+          style: kLabelStyle,
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            controller: controllerGustos,
+            keyboardType: TextInputType.name,
+            style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
+            decoration: InputDecoration(
+              border: InputBorder.none, //quita la barra que aparece al clickar
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.restaurant_menu,
+                color: Colors.white,
+              ),
+              hintText: 'Selecciona tus gustos',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -360,6 +396,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               controllerCorreo.text == "" ||
               controllerTelefono.text == "" ||
               controllerDireccion.text == "" ||
+              controllerGustos.text == "" ||
               controllerDieta.text == "") {
             controllerErrores.text = "Rellena todos los huecos";
             esVisible = true;
@@ -381,6 +418,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               "correo": "${controllerCorreo.text}",
               "telefono": "${controllerTelefono.text}",
               "direccion": "${controllerDireccion.text}",
+              "gustos": [], //"${controllerGustos.text}",
               "dieta": "${controllerDieta.text}",
             };
 
@@ -534,6 +572,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   crearTFDireccion(),
                   SizedBox(
                     height: 10.0,
+                  ),
+                  crearTFGustos(),
+                  SizedBox(
+                    height: 20.0,
                   ),
                   crearTFDieta(),
                   SizedBox(

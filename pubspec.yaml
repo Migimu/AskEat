@@ -29,9 +29,9 @@ dependencies:
   flutter_slidable: ^0.6.0
   qr_code_scanner: ^0.4.0
   expandable: ^5.0.1
-  image_picker: ^0.7.4
   path: ^1.7.0
   path_provider: ^2.0.1
+
   # para guardar el login en local
   shared_preferences: ^2.0.5
 
@@ -40,6 +40,10 @@ dependencies:
 
   # para la conexion a la api
   http: ^0.13.2
+
+  # icono de la app
+  flutter_launcher_icons: "^0.9.0"
+
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,6 +57,12 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/take-away.png"
+
+
 flutter:
 
   # The following line ensures that the Material Icons font is
