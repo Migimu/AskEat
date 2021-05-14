@@ -3,6 +3,7 @@ import 'package:ask_and_eat/global/globals.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:ask_and_eat/api/conexionApi.dart';
 
 class ListaSlider extends StatefulWidget {
   ListaSlider({Key? key}) : super(key: key);
@@ -13,21 +14,36 @@ class ListaSlider extends StatefulWidget {
 
 class _ListaSliderState extends State<ListaSlider> {
   @override
+  void initState() {
+    API.getLocales().then((response) {
+      listaLocalesAPI = response;
+      listaActual = listaLocalesAPI;
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Column(
-              children: listaSlide(),
-            );
-          }),
-    );
+    if (listaLocalesAPI == null) {
+      return Container(
+        child: Center(child: CircularProgressIndicator()),
+      );
+    } else {
+      return Container(
+        child: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return Column(
+                children: listaSlide(),
+              );
+            }),
+      );
+    }
   }
 
   List<Widget> listaSlide() {
     List<Widget> lista = List.generate(
-        listaLocales.length,
+        listaActual.length,
         (index) => Slidable(
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
@@ -39,8 +55,8 @@ class _ListaSliderState extends State<ListaSlider> {
                     child: Image.asset('images/take-away.png'),
                     foregroundColor: Colors.white,
                   ),
-                  title: Text(listaLocales[index][0] as String),
-                  subtitle: Text(listaLocales[index][1] as String),
+                  title: Text(listaActual[index]["nombre"]),
+                  subtitle: Text(listaActual[index]["direccion"]),
                 ),
               ),
               actions: <Widget>[
@@ -113,7 +129,31 @@ class _ListaSliderState extends State<ListaSlider> {
                     ),
                     Text("Bar"),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (valueCasa && valueBar) {
+                          listaActual = listaLocalesAPI;
+                        } else if (valueBar) {
+                          var listaMod = [];
+                          for (var item in listaLocalesAPI) {
+                            if (item["domicilio"] == false) {
+                              listaMod.add(item);
+                            }
+                          }
+                          listaActual = listaMod;
+                        } else if (valueCasa) {
+                          var listaMod = [];
+                          for (var item in listaLocalesAPI) {
+                            if (item["domicilio"] == true) {
+                              listaMod.add(item);
+                            }
+                          }
+                          listaActual = listaMod;
+                        } else {
+                          listaActual = listaLocalesAPI;
+                        }
+                        print(listaActual);
+                        setState(() {});
+                      },
                       child: Text("Aplicar"),
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue[300]),

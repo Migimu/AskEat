@@ -8,9 +8,7 @@ const baseUrl =
 class API {
   static Future getClientes() async {
     var url = baseUrl + "/clientes/leer";
-    var urlUri = Uri.parse(url);
-
-    final response = await http.get(urlUri);
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       return responseJson;
@@ -36,6 +34,32 @@ class API {
 
   static Future getCliente(var user, var contrasena) async {
     var url = baseUrl + "/clientes/leerByUsuario/$user/$contrasena";
+    var urlUri = Uri.parse(url);
+
+    final response = await http.get(urlUri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return responseJson;
+    } else {
+      return null;
+    }
+  }
+
+  static Future getLocales() async {
+    var url = baseUrl + "/locales/leer";
+    var urlUri = Uri.parse(url);
+
+    final response = await http.get(urlUri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return responseJson;
+    } else {
+      return null;
+    }
+  }
+
+  static Future getLocalesByDomicilio(int valor) async {
+    var url = baseUrl + "/locales/leerByDomicilio/$valor";
     var urlUri = Uri.parse(url);
 
     final response = await http.get(urlUri);
