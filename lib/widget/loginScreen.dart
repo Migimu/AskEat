@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    /*API.getClientes().then((response) {
+    API.getClientes().then((response) {
       lista = response;
     });
   }
@@ -352,4 +352,10 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return existe;
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }

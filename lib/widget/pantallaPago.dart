@@ -52,7 +52,14 @@ class _PantallaPagoState extends State<PantallaPago> {
                     child: ListView(
                       children: listaFinal(),
                     )),
-                    ExpandablePanel(header: Row,collapsed: Container(), expanded: expanded)
+                ExpandablePanel(
+                    header: Row(
+                      children: [],
+                    ),
+                    collapsed: Container(),
+                    expanded: Row(
+                      children: [],
+                    ))
               ]),
             ),
             onWillPop: () async {
