@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../global/globals.dart';
+import '../global/globals.dart';
+import '../global/globals.dart';
+import '../global/globals.dart';
+import '../models/Local.dart';
+
 class Mapa extends StatefulWidget {
   /*final List localizaciones;*/
 
@@ -20,8 +26,6 @@ class _MapaState extends State<Mapa> {
   bool _isVisible = false;
   BitmapDescriptor pinLocationIcon =
       BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan);
-  BitmapDescriptor pinAnswered =
-      BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
   bool seguir = false;
   var imagenValida;
 
@@ -206,9 +210,33 @@ class _MapaState extends State<Mapa> {
       if (distancia < 50) {*/
 
     setState(() {
-      //SI ESTA DENTRO DEL CICULO SE MUSTRA EL ICONO
-
-      _markers.add(Marker(
+      //for (dynamic local in listaActual) {
+      for (int i = 0; i < listaActual.length; i++) {
+        print(listaActual[i]["nombre"]);
+        if(!listaActual[i]["domicilio"]){
+          pinLocationIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+        }
+        _markers.add(Marker(
+            markerId: MarkerId(listaActual[i]["nombre"]),
+            position:
+                LatLng(listaActual[i]["latitud"], listaActual[i]["longitud"]),
+            consumeTapEvents: false,
+            icon: pinLocationIcon,
+            zIndex: 1,
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                        backgroundColor: Colors.transparent,
+                        //insetPadding: EdgeInsets.all(40),
+                        child: Pregunta(
+                          nombreLocal: listaActual[i]["nombre"],
+                        ));
+                  });
+            }));
+      }
+      /*_markers.add(Marker(
           markerId: MarkerId("Bar"),
           position: LatLng(43.3181039075075, -1.883062156365791),
           consumeTapEvents: false,
@@ -225,7 +253,7 @@ class _MapaState extends State<Mapa> {
                         nombreLocal: "Zuzen",
                       ));
                 });
-          }));
+          }));*/
     });
   }
   /*break;

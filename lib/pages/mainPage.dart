@@ -5,6 +5,9 @@ import 'package:ask_and_eat/widget/scanner.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../api/conexionApi.dart';
+import '../global/globals.dart';
+
 /*void main() {
   runApp(MyApp());
 }
@@ -33,7 +36,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+ /*initState() {
+    API.getLocales().then((response) {
+      listaLocalesAPI = response;
+      listaActual = listaLocalesAPI;
+      setState(() {});
+    });
+  }*/
+
   var dbuser;
+
+  Future<List> getData() async {
+    return await API.getLocales().then((response) {
+      listaActual = response;
+      return response;
+    });
+  }
 
   _MainPageState(var client) {
     dbuser = client;
@@ -43,21 +61,31 @@ class _MainPageState extends State<MainPage> {
   final _pageOptions = [MapaBuscador(), ListaBuscador(), Opciones()];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pageOptions[selectedPage],
-      bottomNavigationBar: ConvexAppBar(
-        items: [
-          TabItem(icon: Icons.home, title: 'Mapa'),
-          TabItem(icon: Icons.list_alt_outlined, title: 'Lista'),
-          TabItem(icon: Icons.qr_code_sharp, title: 'Escaner QR')
-        ],
-        initialActiveIndex: 0, //optional, default as 0
-        onTap: (int i) {
-          setState(() {
-            selectedPage = i;
-          });
-        },
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return FutureBuilder(
+          future: getData(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot){
+            if(snapshot.hasData){
+              return Scaffold(
+                body: _pageOptions[selectedPage],
+                bottomNavigationBar: ConvexAppBar(
+                  items: [
+                    TabItem(icon: Icons.home, title: 'Mapa'),
+                    TabItem(icon: Icons.list_alt_outlined, title: 'Lista'),
+                    TabItem(icon: Icons.qr_code_sharp, title: 'Escaner QR')
+                  ],
+                  initialActiveIndex: 0, //optional, default as 0
+                  onTap: (int i) {
+                    setState(() {
+                      selectedPage = i;
+                    });
+                  },
+                ), // This trailing comma makes auto-formatting nicer for build methods.
+              );
+            }else{
+              return Center(child: CircularProgressIndicator());
+            }
+            
+          },
     );
   }
 }
@@ -72,9 +100,9 @@ class MapaBuscador extends StatefulWidget {
 class _MapaBuscadorState extends State<MapaBuscador> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Mapa(),
-    );
+      return Container(
+        child: Mapa(),
+      );
   }
 }
 
@@ -144,3 +172,5 @@ class _OpcionesState extends State<Opciones> {
     return EscanerQR();
   }
 }
+
+
