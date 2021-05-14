@@ -15,11 +15,6 @@ class ListaSlider extends StatefulWidget {
 class _ListaSliderState extends State<ListaSlider> {
   @override
   Widget build(BuildContext context) {
-    if (listaLocalesAPI == null) {
-      return Container(
-        child: Center(child: CircularProgressIndicator()),
-      );
-    } else {
       return Container(
         child: ListView.builder(
             itemCount: 1,
@@ -29,7 +24,6 @@ class _ListaSliderState extends State<ListaSlider> {
               );
             }),
       );
-    }
   }
 
   List<Widget> listaSlide() {

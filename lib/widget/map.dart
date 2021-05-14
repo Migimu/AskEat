@@ -26,8 +26,6 @@ class _MapaState extends State<Mapa> {
   bool _isVisible = false;
   BitmapDescriptor pinLocationIcon =
       BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan);
-  BitmapDescriptor pinAnswered =
-      BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
   bool seguir = false;
   var imagenValida;
 
@@ -215,6 +213,9 @@ class _MapaState extends State<Mapa> {
       //for (dynamic local in listaActual) {
       for (int i = 0; i < listaActual.length; i++) {
         print(listaActual[i]["nombre"]);
+        if(!listaActual[i]["domicilio"]){
+          pinLocationIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+        }
         _markers.add(Marker(
             markerId: MarkerId(listaActual[i]["nombre"]),
             position:

@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:ask_and_eat/models/Pedido.dart';
 import 'package:ask_and_eat/models/Producto.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -45,3 +46,6 @@ var valueBar = false;
 bool pedidoCasa = false;
 
 bool pedidobar = false;
+
+Pedido? pedidoActual;
+
