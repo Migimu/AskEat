@@ -19,10 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    API.getClientes().then((response) {
+    /*API.getClientes().then((response) {
       lista = response;
       print(lista);
-    });
+    });*/
   }
 
   /* CONSTANTES */

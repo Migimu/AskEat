@@ -16,62 +16,6 @@ class _ElementoCartaState extends State<ElementoCarta> {
   }
   @override
   Widget build(BuildContext context) {
-    /*return Card(
-      child: Row(children: [
-        Expanded(
-          flex: 3,
-          child: Column(
-            children: [Text(producto.nombre)],
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Column(
-            children: [Text("2,5 €")],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.all(5.0),
-                height: 40.0,
-                width: 40.0,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    child: Icon(
-                      Icons.add_shopping_cart_outlined,
-                      size: 35,
-                    ),
-                    backgroundColor: Colors.greenAccent,
-                    foregroundColor: Colors.black,
-                    onPressed: () => {},
-                  ),
-                ),
-              ),
-              /*Container(
-                              margin: EdgeInsets.all(5.0),
-                              height: 40.0,
-                              width: 40.0,
-                              child: FittedBox(
-                                child: FloatingActionButton(
-                                  child: Icon(
-                                    Icons.remove_shopping_cart_outlined,
-                                    size: 35,
-                                  ),
-                                  backgroundColor: Colors.redAccent,
-                                  foregroundColor: Colors.black,
-                                  onPressed: () => {},
-                                ),
-                              ),
-                            ),*/
-            ],
-          ),
-        ),
-      ]),
-    );*/
     return ExpandablePanel(
       theme: ExpandableThemeData(
           iconColor: Colors.black,
@@ -80,44 +24,23 @@ class _ElementoCartaState extends State<ElementoCarta> {
           collapseIcon: Icons.add_shopping_cart_outlined,
           expandIcon: Icons.add_shopping_cart_outlined),
       header: Card(
-        child: Row(children: [
-          Expanded(
-            flex: 3,
-            child: Column(
-              children: [Text(producto.nombre)],
+        child: Container(
+          height: 40,
+          child: Row(children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [Text(producto.nombre)],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [Text("2,5 €")],
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [Text("2,5 €")],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(5.0),
-                  height: 40.0,
-                  width: 40.0,
-                  child: FittedBox(
-                    child: FloatingActionButton(
-                      child: Icon(
-                        Icons.add_shopping_cart_outlined,
-                        size: 35,
-                      ),
-                      backgroundColor: Colors.greenAccent,
-                      foregroundColor: Colors.black,
-                      onPressed: () => {},
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ]),
+          ]),
+        ),
       ),
       collapsed: Card(
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -130,7 +53,7 @@ class _ElementoCartaState extends State<ElementoCarta> {
                 width: 30.0,
                 child: FittedBox(
                   child: Container(
-                    child: Text("Image.asset('images/sinLactosa.png')"),
+                    child: Image.asset('images/sinLactosa.png'),
                     color: Colors.greenAccent,
                     //foregroundDecoration: Decoration(color: Colors.black),
                   ),
@@ -146,14 +69,10 @@ class _ElementoCartaState extends State<ElementoCarta> {
                 height: 30.0,
                 width: 30.0,
                 child: FittedBox(
-                  child: FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
-                      size: 35,
-                    ),
-                    backgroundColor: Colors.greenAccent,
-                    foregroundColor: Colors.black,
-                    onPressed: () => {},
+                  child: Container(
+                    child: Image.asset('images/mariscos.png'),
+                    color: Colors.greenAccent,
+                    //foregroundDecoration: Decoration(color: Colors.black),
                   ),
                 ),
               ),
@@ -167,14 +86,10 @@ class _ElementoCartaState extends State<ElementoCarta> {
                 height: 30.0,
                 width: 30.0,
                 child: FittedBox(
-                  child: FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
-                      size: 35,
-                    ),
-                    backgroundColor: Colors.greenAccent,
-                    foregroundColor: Colors.black,
-                    onPressed: () => {},
+                  child: Container(
+                    child: Image.asset('images/gluten.png'),
+                    color: Colors.greenAccent,
+                    //foregroundDecoration: Decoration(color: Colors.black),
                   ),
                 ),
               ),
@@ -227,6 +142,30 @@ class _ElementoCartaState extends State<ElementoCarta> {
                     child: FloatingActionButton(
                       child: Icon(
                         Icons.add,
+                        size: 35,
+                      ),
+                      backgroundColor: Colors.greenAccent,
+                      foregroundColor: Colors.black,
+                      onPressed: () => {},
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(5.0),
+                  height: 40.0,
+                  width: 40.0,
+                  child: FittedBox(
+                    child: FloatingActionButton(
+                      child: Icon(
+                        Icons.add_shopping_cart_outlined,
                         size: 35,
                       ),
                       backgroundColor: Colors.greenAccent,
