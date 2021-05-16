@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:ask_and_eat/pages/tab_page.dart';
+import 'package:ask_and_eat/widget/scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class Pregunta extends StatefulWidget {
   final nombreLocal;
@@ -79,7 +81,12 @@ class _PreguntaState extends State<Pregunta> {
                           primary: Colors.black,
                           onSurface: Colors.yellow,
                           minimumSize: Size(100, 50)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EscanerQR()),
+                        );
+                      },
                       child: Text("Bar")),
                 ],
               ),

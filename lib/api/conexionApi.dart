@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 const baseUrl =
-    "http://10.0.2.2:8080/"; //10.0.2.2 porque estas en un emulador de android
+    "http://192.168.56.1:8080/"; //10.0.2.2 porque estas en un emulador de android
 
 class API {
   static Future getClientes() async {
@@ -60,6 +60,32 @@ class API {
 
   static Future getLocalesByDomicilio(int valor) async {
     var url = baseUrl + "/locales/leerByDomicilio/$valor";
+    var urlUri = Uri.parse(url);
+
+    final response = await http.get(urlUri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return responseJson;
+    } else {
+      return null;
+    }
+  }
+
+  static Future getProductos() async {
+    var url = baseUrl + "/productos/leer";
+    var urlUri = Uri.parse(url);
+
+    final response = await http.get(urlUri);
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      return responseJson;
+    } else {
+      return null;
+    }
+  }
+
+  static Future getProductosLocal() async {
+    var url = baseUrl + "/productoslocal/leer";
     var urlUri = Uri.parse(url);
 
     final response = await http.get(urlUri);

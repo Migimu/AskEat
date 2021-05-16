@@ -1,8 +1,9 @@
+import 'package:ask_and_eat/api/conexionApi.dart';
 import 'package:ask_and_eat/global/globals.dart';
 import 'package:ask_and_eat/widget/elemtoCartaMenu.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:ask_and_eat/widget/dialogCarro.dart';
+import 'package:flutter/material.dart';
 
 class carta_view extends StatefulWidget {
   carta_view({Key? key, required this.title}) : super(key: key);
@@ -14,211 +15,271 @@ class carta_view extends StatefulWidget {
 }
 
 class _carta_view extends State<carta_view> {
+  Future<List> getProductosTodos() async {
+    await API.getProductos().then((response) {
+      productosList = response;
+    });
+    return await API.getProductosLocal().then((response) {
+      productosLocalList = response;
+      return response;
+    });
+  }
+
+  /*Future<List> getProductosLocal() async {
+    return await API.getLocales().then((response) {
+      listaActual = response;
+      return response;
+    });
+  }*/
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(widget.title),
-        centerTitle: true,
-        bottom: TabBar(
-          tabs: [
-            Tab(
-              text: "Bebidas",
-            ),
-            Tab(text: "Raciones"),
-            Tab(text: "Platos"),
-          ],
-        ),
-      ),
-      body: Center(
-        child: TabBarView(
-          children: [
-            Container(
-              color: Colors.blueGrey,
-              child: Column(
-                children: [
+    return FutureBuilder(
+        future: getProductosTodos(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            List<String> tabList = ["Bebida", "Racion", "Plato"];
+            List menuBebida = [];
+            List menuRacion = [];
+            List menuPlato = [];
+            List<Widget> menusVista = [];
+            for (var tabName in tabList) {
+              for (var produto in productosList) {
+                if (tabName.compareTo(produto["tipo"]) == 0 &&
+                    tabName.compareTo("Bebida") == 0) {
+                  menuBebida.add(produto);
+                } else if (tabName.compareTo(produto["tipo"]) == 0 &&
+                    tabName.compareTo("Racion") == 0) {
+                  menuRacion.add(produto);
+                } else if (tabName.compareTo(produto["tipo"]) == 0 &&
+                    tabName.compareTo("Plato") == 0) {
+                  menuPlato.add(produto);
+                }
+              }
+            }
+
+            return Scaffold(
+              appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  title: Text(widget.title),
+                  centerTitle: true,
+                  bottom: TabBar(tabs: [
+                    Tab(
+                      text: "Bebida",
+                    ),
+                    Tab(
+                      text: "Bebida",
+                    ),
+                    Tab(
+                      text: "Plato",
+                    )
+                  ])),
+              body: Center(
+                child: TabBarView(children: [
                   Container(
-                    margin: EdgeInsets.all(10.0),
-                    child: Row(
+                    color: Colors.blueGrey,
+                    child: Column(
                       children: [
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        Container(
+                          margin: EdgeInsets.all(10.0),
+                          child: Row(
                             children: [
-                              Text(
-                                "Productos",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.blueGrey[50],
-                                  fontWeight: FontWeight.bold,
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Productos",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blueGrey[50],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Precio",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blueGrey[50],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Text(" ")],
+                                ),
+                              )
                             ],
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Precio",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.blueGrey[50],
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, position) {
+                            return ElementoCarta(
+                                producto: menuBebida[position]);
+                          },
+                          itemCount: menuBebida.length,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Text(" ")],
-                          ),
-                        )
                       ],
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, position) {
-                      return ElementoCarta(producto: dummyMenu[position]);
-                    },
-                    itemCount: dummyMenu.length,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.blueAccent,
-              child: Column(
-                children: [
                   Container(
-                    margin: EdgeInsets.all(10.0),
-                    child: Row(
+                    color: Colors.blueGrey,
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: Column(
+                        Container(
+                          margin: EdgeInsets.all(10.0),
+                          child: Row(
                             children: [
-                              Text(
-                                "Productos",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Productos",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blueGrey[50],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Precio",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blueGrey[50],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Text(" ")],
+                                ),
+                              )
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Precio",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, position) {
+                            return ElementoCarta(
+                                producto: menuRacion[position]);
+                          },
+                          itemCount: menuRacion.length,
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [Text(" ")],
-                          ),
-                        )
                       ],
                     ),
                   ),
-                  /*ListView.builder(
-                    itemBuilder: (context, position) {
-                      Card(
-                        child: Text(),
-                      );
-                    },
-                    itemCount: androidVersionNames.length,
-                  ),*/
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.greenAccent,
-              child: Column(
-                children: [
                   Container(
-                    margin: EdgeInsets.all(10.0),
-                    child: Row(
+                    color: Colors.blueGrey,
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: Column(
+                        Container(
+                          margin: EdgeInsets.all(10.0),
+                          child: Row(
                             children: [
-                              Text(
-                                "Productos",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Productos",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blueGrey[50],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Precio",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.blueGrey[50],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Text(" ")],
+                                ),
+                              )
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Precio",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, position) {
+                            return ElementoCarta(producto: menuPlato[position]);
+                          },
+                          itemCount: menuPlato.length,
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [Text(" ")],
-                          ),
-                        )
                       ],
                     ),
-                  ),
-                  /*ListView.builder(
-                    itemBuilder: (context, position) {
-                      Card(
-                        child: Text(),
-                      );
-                    },
-                    itemCount: androidVersionNames.length,
-                  ),*/
-                ],
+                  )
+                ]),
               ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                    backgroundColor: Colors.transparent,
-                    //insetPadding: EdgeInsets.all(40),
-                    child: Carro(
-                      nombreLocal: "Zuzen",
-                    ));
-              });
-        },
-        child: Icon(Icons.shopping_cart_outlined),
-        backgroundColor: Colors.green,
-      ),
-    );
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                            backgroundColor: Colors.transparent,
+                            //insetPadding: EdgeInsets.all(40),
+                            child: Carro(
+                              nombreLocal: localActual["nombre"],
+                            ));
+                      });
+                },
+                child: Icon(Icons.shopping_cart_outlined),
+                backgroundColor: Colors.green,
+              ),
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }

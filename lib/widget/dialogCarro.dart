@@ -63,17 +63,20 @@ class _CarroState extends State<Carro> {
                 ),
               ),*/
               Container(
+                color: Colors.blue[100],
                 height: 200,
                 child: ListView.builder(
-                  itemCount: pedidoActual!.listaProductos.length,
+                  itemCount: carroCompra.length,
                   itemBuilder: (BuildContext context, int index) {
+                    double total =
+                        carroCompra[index][1] * carroCompra[index][2];
                     return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            pedidoActual!.listaProductos[index][0].nombre,
+                            carroCompra[index][0],
                           ),
-                          Text(pedidoActual!.listaProductos[index][1]),
+                          Text("$total"),
                           TextButton(
                               onPressed: () {
                                 showDialog(
@@ -96,9 +99,10 @@ class _CarroState extends State<Carro> {
                                           child: Text("Si"),
                                           onPressed: () {
                                             //CERRAMOS PESTAÑA
-                                            pedidoActual!.listaProductos
-                                                .removeAt(index);
-                                            Navigator.of(context).pop();
+                                            setState(() {
+                                              carroCompra.removeAt(index);
+                                              Navigator.of(context).pop();
+                                            });
                                           },
                                         ),
                                       ],
@@ -111,6 +115,7 @@ class _CarroState extends State<Carro> {
                   },
                 ),
               ),
+
               SizedBox(
                 height: 5,
               ),
@@ -171,6 +176,40 @@ class _CarroState extends State<Carro> {
                             TextButton(
                               child: Text("Si"),
                               onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        child: Container(
+                                            height: 200,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text(
+                                                        "El pedido se ha realizado, su pedido esta en camino!",
+                                                        style: TextStyle(
+                                                            fontSize: 20),
+                                                      ),
+                                                      TextButton(
+                                                        child:
+                                                            Icon(Icons.check),
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        MainPage()),
+                                                          );
+                                                        },
+                                                      )
+                                                    ]))),
+                                      );
+                                    });
                                 if (direccion!.isEmpty) {
                                   Navigator.push(
                                     context,

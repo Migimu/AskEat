@@ -50,3 +50,10 @@ bool pedidobar = false;
 Pedido? pedidoActual;
 
 String? direccion;
+
+var productosList;
+var productosLocalList;
+
+var localActual;
+
+var resultadoScanner;

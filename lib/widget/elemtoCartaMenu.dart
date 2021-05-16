@@ -1,4 +1,5 @@
-import 'package:ask_and_eat/models/Producto.dart';
+import 'package:ask_and_eat/global/globals.dart';
+import 'package:ask_and_eat/models/productoLocal.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +11,22 @@ class ElementoCarta extends StatefulWidget {
 }
 
 class _ElementoCartaState extends State<ElementoCarta> {
-  late Producto producto;
-  _ElementoCartaState(Producto producto) {
+  var producto;
+  int cont = 0;
+  _ElementoCartaState(var producto) {
     this.producto = producto;
   }
   @override
   Widget build(BuildContext context) {
+    var precio = 1.5;
+    bool enable = true;
+    for (var productoLocal in productosLocalList) {
+      if (productoLocal["idProducto"] == producto["id"] &&
+          productoLocal["idLocal"] == localActual["idLocal"]) {
+        precio = productoLocal["precio"];
+        enable = productoLocal["existe"];
+      }
+    }
     return ExpandablePanel(
       theme: ExpandableThemeData(
           iconColor: Colors.black,
@@ -30,13 +41,13 @@ class _ElementoCartaState extends State<ElementoCarta> {
             Expanded(
               flex: 3,
               child: Column(
-                children: [Text(producto.nombre)],
+                children: [Text(producto["nombre"])],
               ),
             ),
             Expanded(
               flex: 2,
               child: Column(
-                children: [Text("2,5 €")],
+                children: [Text("$precio")],
               ),
             ),
           ]),
@@ -116,7 +127,13 @@ class _ElementoCartaState extends State<ElementoCarta> {
                       ),
                       backgroundColor: Colors.greenAccent,
                       foregroundColor: Colors.black,
-                      onPressed: () => {},
+                      onPressed: () => {
+                        setState(() {
+                          if (cont > 0) {
+                            cont--;
+                          }
+                        })
+                      },
                     ),
                   ),
                 ),
@@ -126,7 +143,7 @@ class _ElementoCartaState extends State<ElementoCarta> {
           Expanded(
             flex: 2,
             child: Column(
-              children: [Text("0")],
+              children: [Text("$cont")],
             ),
           ),
           Expanded(
@@ -146,7 +163,13 @@ class _ElementoCartaState extends State<ElementoCarta> {
                       ),
                       backgroundColor: Colors.greenAccent,
                       foregroundColor: Colors.black,
-                      onPressed: () => {},
+                      onPressed: () => {
+                        setState(() {
+                          if (cont < 10) {
+                            cont++;
+                          }
+                        })
+                      },
                     ),
                   ),
                 ),
@@ -170,7 +193,12 @@ class _ElementoCartaState extends State<ElementoCarta> {
                       ),
                       backgroundColor: Colors.greenAccent,
                       foregroundColor: Colors.black,
-                      onPressed: () => {},
+                      onPressed: () {
+                        carroCompra.add([producto["nombre"], precio, cont]);
+                        setState(() {
+                          cont = 0;
+                        });
+                      },
                     ),
                   ),
                 ),

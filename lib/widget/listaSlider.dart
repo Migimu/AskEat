@@ -1,4 +1,6 @@
 import 'package:ask_and_eat/global/globals.dart';
+import 'package:ask_and_eat/pages/tab_page.dart';
+import 'package:ask_and_eat/widget/scanner.dart';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +17,15 @@ class ListaSlider extends StatefulWidget {
 class _ListaSliderState extends State<ListaSlider> {
   @override
   Widget build(BuildContext context) {
-      return Container(
-        child: ListView.builder(
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return Column(
-                children: listaSlide(),
-              );
-            }),
-      );
+    return Container(
+      child: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            return Column(
+              children: listaSlide(),
+            );
+          }),
+    );
   }
 
   List<Widget> listaSlide() {
@@ -49,13 +51,23 @@ class _ListaSliderState extends State<ListaSlider> {
                   caption: 'Casa',
                   color: Colors.blue,
                   icon: Icons.food_bank_outlined,
-                  onTap: () => () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabPage()),
+                    );
+                  },
                 ),
                 IconSlideAction(
                   caption: 'Bar',
                   color: Colors.indigo,
                   icon: Icons.local_drink_outlined,
-                  onTap: () => () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EscanerQR()),
+                    );
+                  },
                 ),
               ],
               secondaryActions: [
@@ -63,13 +75,23 @@ class _ListaSliderState extends State<ListaSlider> {
                   caption: 'Casa',
                   color: Colors.blue,
                   icon: Icons.food_bank_outlined,
-                  onTap: () => () {},
+                  onTap: () => () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabPage()),
+                    );
+                  },
                 ),
                 IconSlideAction(
                   caption: 'Bar',
                   color: Colors.indigo,
                   icon: Icons.local_drink_outlined,
-                  onTap: () => () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EscanerQR()),
+                    );
+                  },
                 ),
               ],
             ));

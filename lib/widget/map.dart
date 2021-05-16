@@ -213,8 +213,9 @@ class _MapaState extends State<Mapa> {
       //for (dynamic local in listaActual) {
       for (int i = 0; i < listaActual.length; i++) {
         print(listaActual[i]["nombre"]);
-        if(!listaActual[i]["domicilio"]){
-          pinLocationIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+        if (!listaActual[i]["domicilio"]) {
+          pinLocationIcon =
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
         }
         _markers.add(Marker(
             markerId: MarkerId(listaActual[i]["nombre"]),
@@ -224,6 +225,7 @@ class _MapaState extends State<Mapa> {
             icon: pinLocationIcon,
             zIndex: 1,
             onTap: () {
+              localActual = listaActual[i];
               showDialog(
                   context: context,
                   builder: (BuildContext context) {

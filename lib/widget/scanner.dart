@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:ask_and_eat/global/globals.dart';
+import 'package:ask_and_eat/pages/tab_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -72,7 +74,11 @@ class _EscanerQRState extends State<EscanerQR> {
     controller.scannedDataStream.listen((scanData) {
       print("Lo has conseguido");
       setState(() {
-        result = scanData;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TabPage()),
+        );
+        resultadoScanner = scanData;
       });
     });
   }
